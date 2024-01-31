@@ -1,0 +1,57 @@
+p,
+h3 {
+  color: white;
+}
+
+.flip__card {
+  cursor: pointer;
+  width: 150px;
+  height: 150px;
+  border-radius: 8px;
+  -webkit-transition: 0.5s;
+  -webkit-transform-style: preserve-3d;
+  position: relative;
+  visibility: 1;
+}
+
+.flip__card .front {
+  background: #5e6a6c;
+  width: 150px;
+  height: 150px;
+  border-radius: 8px;
+  -webkit-backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.flip__card .back {
+  width: 150px;
+  height: 150px;
+  border-radius: 8px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-align: center;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform: rotateY(180deg);
+}
+
+.flipped {
+  -webkit-transform: rotateY(180deg);
+}
+
+.matching {
+  -webkit-transform: rotateY(180deg);
+}
+
+#memo_container {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(4, 150px);
+  /* grid-template-rows: repeat(auto, auto); */
+}
+
+.cant_click {
+  pointer-events: none;
+}
