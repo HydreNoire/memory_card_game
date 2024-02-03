@@ -14,6 +14,7 @@
         btn.addEventListener('click', () => {
             createTab(btn.value);
 
+            clearInterval(timing);
             minutes = 0;
             secondes = 0;
             timer.textContent = "";
@@ -25,6 +26,20 @@
             let nbCards = memoBody.querySelectorAll(".flip__card");
             countBonusScore(nbCards.length);
         });
+    });
+
+    // GESTION COMPTEUR + SCORE + CLICK COUNTER
+    memoBody.addEventListener('click', () => {
+        let nbCards = memoBody.querySelectorAll(".flip__card");
+        let matchingCards = memoBody.querySelectorAll('.matching');
+        console.log("Cartes = ", nbCards.length, " Nombre de paires = ", matchingCards.length);
+
+        addScore(score, matchingCards, bonuScore);
+
+        if (nbCards.length === matchingCards.length) {
+            console.log("Toutes les paires sont trouvées");
+            clearInterval(timing);
+        }
     });
 
     function countBonusScore(nb) {
@@ -124,20 +139,6 @@
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
-
-    // GESTION COMPTEUR + SCORE + CLICK COUNTER
-    memoBody.addEventListener('click', () => {
-        let nbCards = memoBody.querySelectorAll(".flip__card");
-        let matchingCards = memoBody.querySelectorAll('.matching');
-        console.log("Cartes = ", nbCards.length, " Nombre de paires = ", matchingCards.length);
-
-        addScore(score, matchingCards, bonuScore);
-
-        if (nbCards.length === matchingCards.length) {
-            console.log("Toutes les paires sont trouvées");
-            clearInterval(timing);
-        }
-    });
 
     function addScore(score, matchedCard, bonus) {
         score.innerText = matchedCard.length * bonus;
