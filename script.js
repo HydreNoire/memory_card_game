@@ -1,106 +1,155 @@
 
 
-let btnNb = document.querySelectorAll("input[type=button]");
-let memoBody = document.querySelector("#memo_container");
+(function () {
+    const btnNb = document.querySelectorAll("input[type=button]");
+    let memoBody = document.querySelector("#memo_container");
+    let score = document.querySelector("#score");
+    const timer = document.querySelector("#timer");
+    let bonuScore = 0;
+    let secondes = 0;
+    let minutes = 0;
+    let timing;
 
-btnNb.forEach(btn => {
-    btn.addEventListener('click', () => {
-        createTab(btn.value)
+    btnNb.forEach(btn => {
+        btn.addEventListener('click', () => {
+            createTab(btn.value);
+
+            minutes = 0;
+            secondes = 0;
+            timer.textContent = "";
+            timing = setInterval(() => {
+                setTimer(timer)
+            }, 1000)
+
+            score.innerText = 0;
+            let nbCards = memoBody.querySelectorAll(".flip__card");
+            countBonusScore(nbCards.length);
+        });
     });
-});
 
-function createTab(value) {
-    console.log(value)
-    memoBody.classList.remove('cant_click');
-
-    if (document.querySelectorAll(".flip__card").length > 0) {
-        console.log("Il y a des cartes déjà générées");
-        memoBody.innerHTML = '';
+    function countBonusScore(nb) {
+        switch (nb) {
+            case 12:
+                bonuScore = 120;
+                break;
+            case 16:
+                bonuScore = 160;
+                break;
+            case 20:
+                bonuScore = 200;
+                break;
+            default:
+                bonuScore = 10;
+                break;
+        }
     }
 
-    let randomIndexTab = createTabCards(value);
-    console.log("Fonction createTabCards() ", randomIndexTab)
+    function createTab(value) {
+        memoBody.classList.remove('cant_click');
 
-    for (let i = 0; i < randomIndexTab.length; i++) {
-        // console.log("Je crée la case N°", i, " avec pour index d'image = ", randomIndexTab[i]);
+        if (document.querySelectorAll(".flip__card").length > 0) {
+            memoBody.innerHTML = '';
+        }
 
-        let newCard = document.createElement("div");
-        newCard.classList.add("flip__card");
-        newCard.dataset.validate = randomIndexTab[i];
-        newCard.onclick = () => validateCard(newCard);
-        newCard.innerHTML = `<div class="front"></div>
+        let randomIndexTab = createTabCards(value);
+
+        for (let i = 0; i < randomIndexTab.length; i++) {
+            let newCard = document.createElement("div");
+            newCard.classList.add("flip__card");
+            newCard.dataset.validate = randomIndexTab[i];
+            newCard.onclick = () => validateCard(newCard);
+            newCard.innerHTML = `<div class="front"></div>
                             <div class="back" style="background: url('./assets/img_${randomIndexTab[i]}.png'); background-size: cover;"></div>`
-        memoBody.append(newCard);
+            memoBody.append(newCard);
+        }
     }
-}
 
-memoBody.addEventListener('click', () => {
-    console.log("Je clique sur mon memory")
-})
+    function validateCard(item) {
+        item.classList.add("flipped");
 
-function validateCard(item) {
-    item.classList.add("flipped");
+        if (memoBody.querySelectorAll(".flipped").length == 2) {
+            memoBody.classList.add('cant_click');
 
-    if (memoBody.querySelectorAll(".flipped").length == 2) {
-        memoBody.classList.add('cant_click');
+            const [firstCard, secondCard] = memoBody.querySelectorAll(".flipped");
 
-        const [firstCard, secondCard] = memoBody.querySelectorAll(".flipped");
-        console.log(firstCard.dataset.validate, secondCard.dataset.validate);
-
-        if (firstCard.dataset.validate === secondCard.dataset.validate) {
-            firstCard.classList.replace('flipped', 'matching');
-            secondCard.classList.replace('flipped', 'matching');
-
-            memoBody.classList.remove('cant_click');
-        } else {
-            setTimeout(() => {
-                firstCard.classList.remove("flipped");
-                secondCard.classList.remove("flipped");
+            if (firstCard.dataset.validate === secondCard.dataset.validate) {
+                firstCard.classList.replace('flipped', 'matching');
+                secondCard.classList.replace('flipped', 'matching');
                 memoBody.classList.remove('cant_click');
-            }, 1000);
+            } else {
+                setTimeout(() => {
+                    firstCard.classList.remove("flipped");
+                    secondCard.classList.remove("flipped");
+                    memoBody.classList.remove('cant_click');
+                }, 1000);
+            }
+
         }
 
     }
 
-}
+    function createTabCards(nb) {
+        let arr = [];
 
-function createTabCards(nb) {
-    let arr = [];
+        while (arr.length < nb) {
+            let numberToPush = getRandomInt(1, 21);
 
-    for (let i = 1; i <= nb / 2; i++) {
-        let numberToPush = getRandomInt(1, 21);
+            if (arr.includes(numberToPush) || numberToPush === 0) {
+                continue;
+            } else {
+                arr.push(numberToPush);
+                arr.push(numberToPush);
+            }
+        }
 
-        if (arr.includes(numberToPush) || numberToPush === 0) {
-            numberToPush = getRandomInt(1, 21);
-            arr.push(numberToPush);
-            arr.push(numberToPush);
+        shuffleArray(arr);
+        return arr
+    }
+
+    function shuffleArray(array) {
+        let currentIndex = array.length;
+
+        while (currentIndex > 0) {
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex--;
+
+            [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+        }
+
+        return array;
+    }
+
+    function getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    // GESTION COMPTEUR + SCORE + CLICK COUNTER
+    memoBody.addEventListener('click', () => {
+        let nbCards = memoBody.querySelectorAll(".flip__card");
+        let matchingCards = memoBody.querySelectorAll('.matching');
+        console.log("Cartes = ", nbCards.length, " Nombre de paires = ", matchingCards.length);
+
+        addScore(score, matchingCards, bonuScore);
+
+        if (nbCards.length === matchingCards.length) {
+            console.log("Toutes les paires sont trouvées");
+            clearInterval(timing);
+        }
+    });
+
+    function addScore(score, matchedCard, bonus) {
+        score.innerText = matchedCard.length * bonus;
+    }
+
+    function setTimer(time) {
+        if (secondes === 60) {
+            secondes = 0;
+            minutes++;
         } else {
-            arr.push(numberToPush);
-            arr.push(numberToPush);
+            secondes++
         }
+        time.textContent = `${minutes < 10 ? "0" + minutes : minutes} : ${secondes < 10 ? "0" + secondes : secondes}`;
     }
-
-    shuffleArray(arr);
-    return arr
-}
-
-function shuffleArray(array) {
-    let currentIndex = array.length;
-
-    while (currentIndex > 0) {
-
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex--;
-
-        [array[currentIndex], array[randomIndex]] = [
-            array[randomIndex], array[currentIndex]];
-    }
-
-    return array;
-}
-
-function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+}());
