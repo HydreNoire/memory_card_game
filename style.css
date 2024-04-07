@@ -52,7 +52,6 @@ h3 {
 #memo_container {
   display: grid;
   gap: 1rem;
-  grid-template-columns: repeat(4, 150px);
 }
 
 .cant_click {

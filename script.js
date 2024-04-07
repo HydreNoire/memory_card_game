@@ -61,12 +61,13 @@
 
     function createTab(value) {
         memoBody.classList.remove('cant_click');
+        reorganizeCards(value, memoBody);
 
         if (document.querySelectorAll(".flip__card").length > 0) {
             memoBody.innerHTML = '';
         }
 
-        let randomIndexTab = createTabCards(value);
+        let randomIndexTab = createTabCards(value,);
 
         for (let i = 0; i < randomIndexTab.length; i++) {
             let newCard = document.createElement("div");
@@ -152,5 +153,17 @@
             secondes++
         }
         time.textContent = `${minutes < 10 ? "0" + minutes : minutes} : ${secondes < 10 ? "0" + secondes : secondes}`;
+    }
+
+    // STYLE MEMOBODY SELON NB CARDS
+    function reorganizeCards(cards, grid) {
+        console.log("Nombre de carte pour style de grille", cards)
+        if (cards >= 20) {
+            console.log("Plus ou total de 20 cartes");
+            return grid.style.gridTemplateColumns = "repeat(5, 150px)";
+        } else if (cards < 20) {
+            console.log("Moins de 20 cartes");
+            return grid.style.gridTemplateColumns = "repeat(4, 150px)";
+        }
     }
 }());
