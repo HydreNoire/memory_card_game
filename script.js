@@ -10,6 +10,7 @@
     let minutes = 0;
     let timing;
 
+    // ACTION BTN NB CARDS
     btnNb.forEach(btn => {
         btn.addEventListener('click', () => {
             createTab(btn.value);
@@ -20,7 +21,7 @@
             timer.textContent = "";
             timing = setInterval(() => {
                 setTimer(timer)
-            }, 1000)
+            }, 1000);
 
             score.innerText = 0;
             let nbCards = memoBody.querySelectorAll(".flip__card");
@@ -42,6 +43,7 @@
         }
     });
 
+    // CALCULATE SCORE BY NB CARDS ON MEMO
     function countBonusScore(nb) {
         switch (nb) {
             case 12:
@@ -59,6 +61,7 @@
         }
     }
 
+    // CREATE CARDS BY NB OF CARDS SELECTED
     function createTab(value) {
         memoBody.classList.remove('cant_click');
         reorganizeCards(value, memoBody);
@@ -80,6 +83,7 @@
         }
     }
 
+    // FUNCTION TO COMPARE TWO CARDS FLIPPED
     function validateCard(item) {
         item.classList.add("flipped");
 
@@ -104,6 +108,7 @@
 
     }
 
+    // CREATE A ARRAY
     function createTabCards(nb) {
         let arr = [];
 
@@ -122,6 +127,7 @@
         return arr
     }
 
+    // SHUFFLE AN ARRAY TO RANDOMIZE
     function shuffleArray(array) {
         let currentIndex = array.length;
 
@@ -135,16 +141,19 @@
         return array;
     }
 
+    // GET A RANDOM INTEGER BETWEEN A MAX AND MIN
     function getRandomInt(min, max) {
         min = Math.ceil(min);
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
+    // ADD SCORE INTO DOM
     function addScore(score, matchedCard, bonus) {
         score.innerText = matchedCard.length * bonus;
     }
 
+    // TIMER FUNCTIONNALITY
     function setTimer(time) {
         if (secondes === 60) {
             secondes = 0;
@@ -155,7 +164,7 @@
         time.textContent = `${minutes < 10 ? "0" + minutes : minutes} : ${secondes < 10 ? "0" + secondes : secondes}`;
     }
 
-    // STYLE MEMOBODY SELON NB CARDS
+    // STYLE MEMOBODY  NB CARDS
     function reorganizeCards(cards, grid) {
         console.log("Nombre de carte pour style de grille", cards)
         if (cards >= 20) {
@@ -166,4 +175,5 @@
             return grid.style.gridTemplateColumns = "repeat(4, 150px)";
         }
     }
+
 }());
