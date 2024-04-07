@@ -9,23 +9,32 @@
     <script src="script.js" defer></script>
   </head>
   <body style="background-color: #030637">
+    <h3>Choisis le nombre de carte du plateau</h3>
     <div id="select_nb_cards">
       <input type="button" value="12" />
       <input type="button" value="16" />
       <input type="button" value="20" />
     </div>
-    <h3>Choisis le nombre de carte du plateau</h3>
-    <span
-      id="score"
-      style="color: white; font-size: 24px; font-family: sans-serif"
-    >
-      0
-    </span>
-    <span
-      id="timer"
-      style="color: red; font-size: 24px; font-family: sans-serif"
-    ></span>
+
+    <div class="infos">
+      <span
+        id="score"
+        style="color: white; font-size: 24px; font-family: sans-serif"
+      >
+        0
+      </span>
+      <span
+        id="timer"
+        style="color: white; font-size: 24px; font-family: sans-serif"
+      ></span>
+      <span
+        id="clicks"
+        style="color: red; font-size: 24px; font-family: sans-serif"
+      ></span>
+    </div>
 
     <div id="memo_container"></div>
+
+    <p id="result"></p>
   </body>
 </html>

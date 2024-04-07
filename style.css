@@ -51,9 +51,23 @@ h3 {
 
 #memo_container {
   display: grid;
+  justify-content: center;
   gap: 1rem;
+  margin-top: 2rem;
 }
 
 .cant_click {
   pointer-events: none;
+}
+
+.infos,
+#select_nb_cards {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  gap: 0.5rem;
+}
+
+.infos > #timer {
+  width: 80px;
 }

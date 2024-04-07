@@ -5,11 +5,13 @@
     let memoBody = document.querySelector("#memo_container");
     let score = document.querySelector("#score");
     const timer = document.querySelector("#timer");
+    const nbClicks = document.querySelector("#clicks");
     let bonuScore = 0;
     let secondes = 0;
     let minutes = 0;
     let timing;
     let click = 0;
+    nbClicks.innerText = click;
 
     // ACTION BTN NB CARDS
     btnNb.forEach(btn => {
@@ -35,7 +37,7 @@
 
         nbOfClicks(click);
         click++;
-        console.log("Clicks = ", click);
+        nbClicks.innerText = click;
         addScore(score, matchingCards, bonuScore);
 
         if (nbCards.length === matchingCards.length) {
