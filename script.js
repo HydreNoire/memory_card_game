@@ -9,6 +9,7 @@
     let secondes = 0;
     let minutes = 0;
     let timing;
+    let click = 0;
 
     // ACTION BTN NB CARDS
     btnNb.forEach(btn => {
@@ -16,12 +17,10 @@
             createTab(btn.value);
 
             clearInterval(timing);
+            click = 0;
             minutes = 0;
             secondes = 0;
             timer.textContent = "";
-            timing = setInterval(() => {
-                setTimer(timer)
-            }, 1000);
 
             score.innerText = 0;
             let nbCards = memoBody.querySelectorAll(".flip__card");
@@ -33,12 +32,15 @@
     memoBody.addEventListener('click', () => {
         let nbCards = memoBody.querySelectorAll(".flip__card");
         let matchingCards = memoBody.querySelectorAll('.matching');
-        console.log("Cartes = ", nbCards.length, " Nombre de paires = ", matchingCards.length);
 
+        nbOfClicks(click);
+        click++;
+        console.log("Clicks = ", click);
         addScore(score, matchingCards, bonuScore);
 
         if (nbCards.length === matchingCards.length) {
             console.log("Toutes les paires sont trouvées");
+            click = 0;
             clearInterval(timing);
         }
     });
@@ -166,14 +168,21 @@
 
     // STYLE MEMOBODY  NB CARDS
     function reorganizeCards(cards, grid) {
-        console.log("Nombre de carte pour style de grille", cards)
         if (cards >= 20) {
-            console.log("Plus ou total de 20 cartes");
             return grid.style.gridTemplateColumns = "repeat(5, 150px)";
         } else if (cards < 20) {
-            console.log("Moins de 20 cartes");
             return grid.style.gridTemplateColumns = "repeat(4, 150px)";
         }
     }
 
+    // COUNT NB OF CLICK TO COMPLETE
+    function nbOfClicks(clicks) {
+        console.log("Nb de clicks ", clicks);
+        if (clicks === 0) {
+            console.log('Lancement du timer')
+            timing = setInterval(() => {
+                setTimer(timer)
+            }, 1000);
+        }
+    }
 }());
