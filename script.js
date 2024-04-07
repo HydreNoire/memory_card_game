@@ -6,6 +6,7 @@
     let score = document.querySelector("#score");
     const timer = document.querySelector("#timer");
     const nbClicks = document.querySelector("#clicks");
+    const winText = document.querySelector("#result");
     let bonuScore = 0;
     let secondes = 0;
     let minutes = 0;
@@ -44,6 +45,7 @@
             console.log("Toutes les paires sont trouvées");
             click = 0;
             clearInterval(timing);
+            winText.innerHTML = `You resolve this memory in ${minutes == 0 ? "" : minutes} ${minutes > 0 ? "minutes & " : ""} ${secondes < 10 ? "0" + secondes : secondes} seconds`
         }
     });
 
