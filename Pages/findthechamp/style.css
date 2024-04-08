@@ -1,0 +1,10 @@
+* {
+  font-family: sans-serif;
+}
+
+p,
+h3,
+span {
+  text-transform: none;
+  color: white;
+}

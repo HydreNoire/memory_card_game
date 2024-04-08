@@ -3,7 +3,9 @@
 }
 
 p,
-h3 {
+h3,
+span {
+  text-transform: none;
   color: white;
 }
 
