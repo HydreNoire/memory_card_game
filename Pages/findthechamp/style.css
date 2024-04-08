@@ -8,3 +8,9 @@ span {
   text-transform: none;
   color: white;
 }
+
+.header {
+  text-align: center;
+  border-bottom: 2px solid white;
+  height: 30px;
+}
