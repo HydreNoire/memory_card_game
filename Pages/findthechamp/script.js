@@ -10,7 +10,7 @@ input.addEventListener("input", (e) => {
             console.log(e.target.value);
             let champions = data.champions;
 
-            clearSuggestions(e.target.value, suggestionInput);
+            clearSuggestions();
 
             for (i in champions) {
                 if (champions[i].name.toLowerCase().startsWith(e.target.value.toLowerCase()) && e.target.value != "") {
@@ -19,7 +19,7 @@ input.addEventListener("input", (e) => {
                     let newSuggest = document.createElement("div");
                     newSuggest.classList.add("suggest_card");
                     // newSuggest.onclick = () => function pour remplir le champ;
-                    newSuggest.innerHTML = `${champions[i].name}`
+                    newSuggest.innerHTML = `<img src="${champions[i].image}" width="40px"> ${champions[i].name}`
                     suggestionInput.append(newSuggest);
                 }
             }
@@ -29,7 +29,11 @@ input.addEventListener("input", (e) => {
         });
 });
 
-function clearSuggestions(text, parent) {
+input.addEventListener("focusout", () => {
+    clearSuggestions();
+});
+
+function clearSuggestions() {
     console.log("Je vide les suggestions présentes.")
     return suggestionInput.innerHTML = "";
 }

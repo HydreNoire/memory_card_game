@@ -1,6 +1,7 @@
 {
   "champions": [
     {
+      "image": "./assets/Ahri.jpg",
       "name": "Ahri",
       "genre": "Feminin",
       "role": ["Mid"],
@@ -11,6 +12,7 @@
       "sortie": 2010
     },
     {
+      "image": "./assets/aatrox.jpg",
       "name": "Aatrox",
       "genre": "MAsculin",
       "role": ["Top"],
@@ -21,6 +23,7 @@
       "sortie": 2015
     },
     {
+      "image": "./assets/lux.jpg",
       "name": "Lux",
       "genre": "Feminin",
       "role": ["Mid", "Support"],
@@ -31,6 +34,7 @@
       "sortie": 2011
     },
     {
+      "image": "./assets/sett.jpg",
       "name": "Sett",
       "genre": "Masculin",
       "role": "Top",
