@@ -14,3 +14,28 @@ span {
   border-bottom: 2px solid white;
   height: 30px;
 }
+
+#input_box {
+  position: relative;
+}
+
+#suggestions {
+  background: gray;
+  margin-top: 0.3rem;
+  position: absolute;
+}
+
+.suggest_card {
+  background: green;
+  width: 150px;
+  padding: 1rem;
+  text-align: center;
+  font-weight: 700;
+  color: white;
+  cursor: pointer;
+  margin-bottom: 4px;
+}
+
+.suggest_card:last-child {
+  margin-bottom: 0px;
+}

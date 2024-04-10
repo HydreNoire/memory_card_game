@@ -18,7 +18,10 @@
 
     <h3>Trouve le champion</h3>
     <p>Tape le nom d'un champion</p>
-    <input type="text" name="" id="input_champ" />
+    <div id="input_box">
+      <input type="text" name="" id="input_champ" autocomplete="off" />
+      <div id="suggestions"></div>
+    </div>
     <button id="submit">V</button>
 
     <div id="result" style="margin-top: 1rem">
@@ -38,7 +41,14 @@
         <p class="header">Région</p>
         <p class="header">Sortie</p>
 
-        <div style="width: 80px; height: 80px; background: white"></div>
+        <div
+          style="
+            width: 80px;
+            height: 80px;
+            background: url('./assets/Ahri1.jpg');
+            background-size: contain;
+          "
+        ></div>
         <div style="width: 80px; height: 80px; background: white"></div>
         <div style="width: 80px; height: 80px; background: white"></div>
         <div style="width: 80px; height: 80px; background: white"></div>
