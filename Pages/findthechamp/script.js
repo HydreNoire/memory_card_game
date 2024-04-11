@@ -7,20 +7,20 @@ input.addEventListener("input", (e) => {
     fetch("./champ_infos/champions.json")
         .then((resp) => resp.json())
         .then(function (data) {
-            console.log(e.target.value);
             let champions = data.champions;
 
             clearSuggestions();
 
             for (i in champions) {
                 if (champions[i].name.toLowerCase().startsWith(e.target.value.toLowerCase()) && e.target.value != "") {
-                    console.log("Trouvé", champions[i].name);
+                    // console.log("Trouvé", champions[i].name);
 
                     let newSuggest = document.createElement("div");
                     newSuggest.classList.add("suggest_card");
-                    // newSuggest.onclick = () => function pour remplir le champ;
                     newSuggest.innerHTML = `<img src="${champions[i].image}" width="40px"> ${champions[i].name}`
+                    newSuggest.onclick = () => input.value = newSuggest.innerText;
                     suggestionInput.append(newSuggest);
+                    console.log(newSuggest.innerText)
                 }
             }
         })
@@ -29,11 +29,14 @@ input.addEventListener("input", (e) => {
         });
 });
 
-input.addEventListener("focusout", () => {
-    clearSuggestions();
+// Si l'input n'a plus le focus je retire la possibilité de 
+inputBox.addEventListener("focusout", () => {
+    setTimeout(() => {
+        clearSuggestions();
+    }, 100);
 });
 
+// Function who clear the suggestions box for input
 function clearSuggestions() {
-    console.log("Je vide les suggestions présentes.")
     return suggestionInput.innerHTML = "";
 }
