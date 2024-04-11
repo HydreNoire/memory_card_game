@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" href="style.css" />
     <script src="script.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   </head>
   <body style="background-color: #030637">
     <nav>
@@ -24,7 +25,7 @@
     </div>
     <button id="submit">V</button>
 
-    <div id="result" style="margin-top: 1rem">
+    <div style="margin-top: 1rem">
       <div
         style="
           display: grid;
@@ -40,23 +41,16 @@
         <p class="header">Portée</p>
         <p class="header">Région</p>
         <p class="header">Sortie</p>
-
-        <div
-          style="
-            width: 80px;
-            height: 80px;
-            background: url('./assets/Ahri.jpg');
-            background-size: contain;
-          "
-        ></div>
-        <div style="width: 80px; height: 80px; background: white"></div>
-        <div style="width: 80px; height: 80px; background: white"></div>
-        <div style="width: 80px; height: 80px; background: white"></div>
-        <div style="width: 80px; height: 80px; background: white"></div>
-        <div style="width: 80px; height: 80px; background: white"></div>
-        <div style="width: 80px; height: 80px; background: white"></div>
-        <div style="width: 80px; height: 80px; background: white"></div>
       </div>
+
+      <div
+        id="result"
+        style="
+          display: grid;
+          gap: 0.5rem;
+          grid-template-columns: repeat(8, 80px);
+        "
+      ></div>
     </div>
   </body>
 </html>

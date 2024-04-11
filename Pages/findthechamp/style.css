@@ -42,3 +42,9 @@ span {
 .suggest_card:last-child {
   margin-bottom: 0px;
 }
+
+.guess_card {
+  width: 80px;
+  height: 80px;
+  background: white;
+}
