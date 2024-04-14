@@ -86,9 +86,7 @@ function newGuess(champ, parent) {
             for (i in champions) {
                 console.log(champions[i]);
                 if (champ == champions[i].name) {
-                    console.log(champ, "est égal à", champions[i].name);
                     for (const property in champions[i]) {
-                        console.log(`${property}: ${champions[i][property]}`);
                         if (property == "name") {
                             continue;
                         } else if (property == "image") {
@@ -102,11 +100,7 @@ function newGuess(champ, parent) {
                         else {
                             let guess = document.createElement("div");
                             guess.classList.add("guess_card");
-                            if (champions[i][property] == genreChamp) {
-                                guess.style.background = "green";
-                            } else {
-                                guess.style.background = "red";
-                            }
+                            isValidOrNot(champions[i][property], guess)
                             guess.innerHTML = `${champions[i][property]}`;
                             parent.prepend(guess);
                         }
@@ -115,4 +109,15 @@ function newGuess(champ, parent) {
             }
         })
 
+}
+
+// TO VALID OR NOT THE CARD 
+function isValidOrNot(property, card) {
+    console.log(property)
+    if (property == genreChamp || property == roleChamp || property == especeChamp || property == ressourceChamp || property == porteeChamp || property == regionChamp || property == sortieChamp) {
+        card.style.background = "green";
+    }
+    else {
+        card.style.background = "red";
+    }
 }
