@@ -4,6 +4,39 @@ const resultBox = document.querySelector("#result");
 let input = inputBox.querySelector("#input_champ");
 let suggestions = document.querySelectorAll(".suggest_card");
 
+// VARIABLE FOR CHAMP TO RETRIEVE
+let nameChamp;
+let genreChamp;
+let roleChamp;
+let especeChamp;
+let ressourceChamp;
+let porteeChamp;
+let regionChamp;
+let sortieChamp;
+
+window.addEventListener("load", () => {
+    fetch("./champ_infos/champions.json")
+        .then((resp) => resp.json())
+        .then(function (data) {
+            let champions = data.champions;
+            let randomInt = Math.floor(Math.random() * champions.length);
+
+            nameChamp = champions[randomInt].name;
+            console.log(nameChamp)
+            genreChamp = champions[randomInt].genre;
+            roleChamp = champions[randomInt].role;
+            especeChamp = champions[randomInt].espece;
+            ressourceChamp = champions[randomInt].ressource;
+            porteeChamp = champions[randomInt].portee;
+            regionChamp = champions[randomInt].region;
+            sortieChamp = champions[randomInt].sortie;
+
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+})
+
 input.addEventListener("input", (e) => {
     fetch("./champ_infos/champions.json")
         .then((resp) => resp.json())
@@ -64,13 +97,18 @@ function newGuess(champ, parent) {
                             guess.classList.add("guess_card_img");
                             guess.style.background = `url('${champions[i][property]}')`;
                             guess.style.backgroundSize = "contain";
-                            parent.append(guess);
+                            parent.prepend(guess);
                         }
                         else {
                             let guess = document.createElement("div");
                             guess.classList.add("guess_card");
+                            if (champions[i][property] == genreChamp) {
+                                guess.style.background = "green";
+                            } else {
+                                guess.style.background = "red";
+                            }
                             guess.innerHTML = `${champions[i][property]}`;
-                            parent.append(guess);
+                            parent.prepend(guess);
                         }
                     }
                 }
