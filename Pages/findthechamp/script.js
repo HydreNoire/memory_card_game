@@ -100,7 +100,7 @@ function newGuess(champ, parent) {
                         else {
                             let guess = document.createElement("div");
                             guess.classList.add("guess_card");
-                            isValidOrNot(champions[i][property], guess)
+                            isValidOrNot(champions[i][property], guess, roleChamp);
                             guess.innerHTML = `${champions[i][property]}`;
                             parent.prepend(guess);
                         }
@@ -112,12 +112,36 @@ function newGuess(champ, parent) {
 }
 
 // TO VALID OR NOT THE CARD 
-function isValidOrNot(property, card) {
-    console.log(property)
-    if (property == genreChamp || property == roleChamp || property == especeChamp || property == ressourceChamp || property == porteeChamp || property == regionChamp || property == sortieChamp) {
-        card.style.background = "green";
-    }
-    else {
-        card.style.background = "red";
+function isValidOrNot(property, card, compare) {
+    if (Array.isArray(property)) {
+        // Boucler sur le tableau avec for each
+        // vérifier si toutes les occurences du tableau property fait partie du tableau à comparer
+        // Si partiel orange, si du tout rouge sinon vert
+        property.forEach(elem => {
+            console.log(elem);
+            let count = 0;
+
+            if (compare.includes(elem)) {
+                console.log("Fait partie du tableau +1 = ", count)
+                count = count++;
+            }
+
+            if (count == property.length) {
+                card.style.background = "green";
+            } else if (count > 0 && count < property.length) {
+                card.style.background = "orange";
+            } else {
+                card.style.background = "red";
+            }
+        })
+    } else {
+
     }
 }
+
+// if (property == genreChamp || property == roleChamp || property == especeChamp || property == ressourceChamp || property == porteeChamp || property == regionChamp || property == sortieChamp) {
+//     card.style.background = "green";
+// }
+// else {
+//     card.style.background = "red";
+// }
