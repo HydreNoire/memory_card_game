@@ -1,0 +1,26 @@
+* {
+  font-family: sans-serif;
+  color: white;
+}
+
+#card_section {
+  display: grid;
+  grid-template-columns: repeat(6, 100px);
+  gap: 1rem;
+}
+
+.guess_card {
+  border: 1px solid blue;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100px;
+  transition: all 0.2s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+}
+
+.guess_card:hover {
+  background: rgba(255, 255, 255, 0.3);
+}

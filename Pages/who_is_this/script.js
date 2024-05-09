@@ -1,9 +1,12 @@
 const cardBox = document.querySelector("#card_section");
+const guessingBox = document.querySelector("#guessing");
 let startBtn = document.querySelector("#start_game");
 let champArr = [];
 
 startBtn.addEventListener("click", () => {
     champArr = [];
+    cardBox.innerHTML = "";
+    guessThisChamp();
     fetch("./champs.json")
         .then((resp) => resp.json())
         .then(function (data) {
@@ -11,8 +14,7 @@ startBtn.addEventListener("click", () => {
 
             for (i in champArr) {
                 let newCard = document.createElement("div");
-                newCard.classList.add("guess_card");
-                newCard.innerHTML = `<div class="front" style="color: white;"><img src="${data.data[i].image}">${data.data[i].name}</div>`
+                newCard.innerHTML = `<div class="guess_card" style="color: white;"><img weidth="50px" height="50px" src="${data.data[champArr[i]].image}">${data.data[champArr[i]].name}</div>`
                 cardBox.append(newCard);
             }
         })
@@ -21,13 +23,20 @@ startBtn.addEventListener("click", () => {
         });
 })
 
-// CREATE CARDS BY NB OF CARDS SELECTED
-// function createCard(parent) {
-//     let newCard = document.createElement("div");
-//     newCard.classList.add("guess_card");
-//     newCard.innerHTML = `<div class="front">${}</div>`
-//     parent.append(newCard);
-// }
+function guessThisChamp() {
+    fetch("./champs.json")
+        .then((resp) => resp.json())
+        .then(function (data) {
+            let randomInt = getRandomInt(0, Object.keys(data.data).length);
+
+            let newGuess = document.createElement("div");
+            newGuess.innerHTML = `<div class="guess_champ" style="color: white;"><img weidth="50px" height="50px" src="${data.data[randomInt].image}">${data.data[randomInt].name}</div>`
+            guessingBox.append(newGuess);
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+}
 
 // CREATE A ARRAY
 function createArrCards(length, maxArrCard, arr) {
