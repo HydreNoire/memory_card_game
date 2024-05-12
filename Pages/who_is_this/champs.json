@@ -526,7 +526,7 @@
       "id": "Orianna",
       "name": "Orianna",
       "title": "the Lady of Clockwork",
-      "image": "Orianna.png"
+      "image": "./assets/orianna.png"
     },
     "88": {
       "id": "Ornn",
