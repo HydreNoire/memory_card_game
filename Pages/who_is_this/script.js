@@ -10,11 +10,24 @@ startBtn.addEventListener("click", () => {
     fetch("./champs.json")
         .then((resp) => resp.json())
         .then(function (data) {
+            console.log(Object.keys(data.data).length)
             createArrCards(Object.keys(data.data).length, 24, champArr);
 
             for (i in champArr) {
                 let newCard = document.createElement("div");
-                newCard.innerHTML = `<div class="guess_card" style="color: white;"><img weidth="50px" height="50px" src="${data.data[champArr[i]].image}">${data.data[champArr[i]].name}</div>`
+                newCard.innerHTML = `<div class="guess_card" style="color: white;"><img weidth="50px" height="50px" src="${data.data[champArr[i]].image}">${data.data[champArr[i]].name}</div>`;
+                newCard.onclick = () => {
+                    if (newCard.classList.contains("unselected")) {
+                        newCard.classList.remove("unselected");
+                        newCard.style.opacity = "1";
+                        newCard.style.border = "none";
+                    } else {
+                        newCard.classList.add("unselected");
+                        newCard.style.opacity = ".5";
+                        newCard.style.border = "1px solid red";
+                    }
+
+                };
                 cardBox.append(newCard);
             }
         })
@@ -24,6 +37,8 @@ startBtn.addEventListener("click", () => {
 })
 
 function guessThisChamp() {
+    guessingBox.innerHTML = "";
+
     fetch("./champs.json")
         .then((resp) => resp.json())
         .then(function (data) {
@@ -58,3 +73,15 @@ function getRandomInt(min, max) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+// RULES EVENT
+let infos = document.querySelector("#rules h2 span");
+let infosText = document.querySelector("#rules_text");
+
+infos.addEventListener("mouseover", () => {
+    infosText.style.opacity = "1";
+});
+
+infos.addEventListener("mouseleave", () => {
+    infosText.style.opacity = "0";
+})
