@@ -79,9 +79,9 @@ let infos = document.querySelector("#rules h2 span");
 let infosText = document.querySelector("#rules_text");
 
 infos.addEventListener("mouseover", () => {
-    infosText.style.opacity = "1";
+    infosText.style.display = "block";
 });
 
 infos.addEventListener("mouseleave", () => {
-    infosText.style.opacity = "0";
+    infosText.style.display = "none";
 })

@@ -3,6 +3,13 @@
   color: white;
 }
 
+#main_body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 #card_section {
   display: grid;
   grid-template-columns: repeat(6, 100px);
@@ -40,18 +47,17 @@
 }
 
 #rules_text {
+  display: none;
   background: #24446a;
   border-radius: 16px;
   font-size: 14px;
   padding: 0.5rem;
   padding-left: 1rem;
-  opacity: 0;
   width: 550px;
   position: absolute;
   top: 45px;
   left: 50px;
   transition: all 0.2s ease-in-out;
-  z-index: 10;
 }
 
 #rules_text::after {
